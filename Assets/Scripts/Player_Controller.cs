@@ -24,6 +24,8 @@ public class Player_Controller : MonoBehaviour
 
     private SpriteRenderer mySpriteRenderer;
 
+    private GameObject health;
+
 
     //variable publica que permite acceder al animator desde este script
     // Use this for initialization
@@ -103,17 +105,21 @@ public class Player_Controller : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(this.attackPos.position, this.attackRange);
     }
-
+    
     /// <summary>
-    /// OnCollisionEnter is called when this collider/rigidbody has begun
-    /// touching another rigidbody/collider.
+    /// Sent when an incoming collider makes contact with this object's
+    /// collider (2D physics only).
     /// </summary>
-    /// <param name="other">The Collision data associated with this collision.</param>
-    void OnCollisionEnter(Collision other)
+    /// <param name="other">The Collision2D data associated with this collision.</param>
+    void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("Quitar vida");
-		if (other.gameObject.tag == GetComponent<Enemy>().tag) {
-			Debug.Log("Quitar vid 2a");
+		if (other.gameObject.tag == "Enemy") {
+			--GetComponent<Health>().health;
+            Destroy(other.gameObject);
+            Debug.Log(GetComponent<Health>().health);
+            if(GetComponent<Health>().health == 0) {
+                Debug.Log("GAME OVER!!!!!");
+            }
 		}
     }
 }

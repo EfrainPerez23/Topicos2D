@@ -20,6 +20,7 @@ public class Health : MonoBehaviour {
 		if (this.health > this.hearthNumbers) {
 			this.health = this.hearthNumbers;
 		}
+
 		for(int i = 0; i < this.hearths.Length; i++) {
 
 			if (i < this.health) {
